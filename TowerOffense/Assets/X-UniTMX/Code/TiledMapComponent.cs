@@ -92,11 +92,11 @@ public class TiledMapComponent : MonoBehaviour {
 					{
 						if (is2DCollider)
 						{
-							Destroy(newColliderObject.collider2D);
+							Destroy(newColliderObject.GetComponent<Collider2D>());
 						}
 						else
 						{
-							Destroy(newColliderObject.collider);
+							Destroy(newColliderObject.GetComponent<Collider>());
 						}
 					}
 				}

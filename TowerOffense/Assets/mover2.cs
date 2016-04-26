@@ -36,7 +36,7 @@ public class mover2 : MonoBehaviour {
 	}
 
 	void Update(){
-		rigidbody2D.AddForce (transform.up * speed);
+		GetComponent<Rigidbody2D>().AddForce (transform.up * speed);
 	}
 
 }

@@ -754,7 +754,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody>();
-				newCollider.rigidbody.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -774,7 +774,7 @@ namespace X_UniTMX
 				BoxCollider2D bx = newCollider.AddComponent<BoxCollider2D>();
 				bx.isTrigger = isTrigger || obj.Type.Equals("Trigger");
 
-				bx.center = new Vector2(obj.Bounds.width / 2.0f, -obj.Bounds.height / 2.0f);
+				bx.offset = new Vector2(obj.Bounds.width / 2.0f, -obj.Bounds.height / 2.0f);
 				bx.size = new Vector2(obj.Bounds.width, obj.Bounds.height);
 			}
 			else if(Orientation == X_UniTMX.Orientation.Isometric)
@@ -801,7 +801,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody2D>();
-				newCollider.rigidbody2D.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody2D>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -990,7 +990,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody>();
-				newCollider.rigidbody.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1009,7 +1009,7 @@ namespace X_UniTMX
 				cc.isTrigger = isTrigger || obj.Type.Equals("Trigger");
 
 				newCollider.transform.localPosition = TiledPositionToWorldPoint(obj.Bounds.x, obj.Bounds.y, zDepth);
-				cc.center = new Vector2(obj.Bounds.width / 2.0f, -obj.Bounds.height / 2.0f);
+				cc.offset = new Vector2(obj.Bounds.width / 2.0f, -obj.Bounds.height / 2.0f);
 
 				cc.radius = obj.Bounds.width / 2.0f;
 				
@@ -1025,7 +1025,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody2D>();
-				newCollider.rigidbody2D.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody2D>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1155,7 +1155,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody>();
-				newCollider.rigidbody.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1193,7 +1193,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody2D>();
-				newCollider.rigidbody2D.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody2D>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1245,7 +1245,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody2D>();
-				newCollider.rigidbody2D.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody2D>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1410,7 +1410,7 @@ namespace X_UniTMX
 			if (createRigidbody)
 			{
 				newCollider.AddComponent<Rigidbody>();
-				newCollider.rigidbody.isKinematic = rigidbodyIsKinematic;
+				newCollider.GetComponent<Rigidbody>().isKinematic = rigidbodyIsKinematic;
 			}
 
 			if (obj.Rotation != 0)
@@ -1540,11 +1540,11 @@ namespace X_UniTMX
 					{
 						if (is2DCollider)
 						{
-							GameObject.Destroy(newColliderObject.collider2D);
+							GameObject.Destroy(newColliderObject.GetComponent<Collider2D>());
 						}
 						else
 						{
-							GameObject.Destroy(newColliderObject.collider);
+							GameObject.Destroy(newColliderObject.GetComponent<Collider>());
 						}
 					}
 					if(newColliderObject)
@@ -1632,52 +1632,52 @@ namespace X_UniTMX
 					if (is2DColliders)
 					{
 						BoxCollider2D c = destination.AddComponent<BoxCollider2D>();
-						c.isTrigger = ((BoxCollider2D)origin.collider2D).isTrigger;
-						c.size = ((BoxCollider2D)origin.collider2D).size;
-						c.center = ((BoxCollider2D)origin.collider2D).center;
+						c.isTrigger = ((BoxCollider2D)origin.GetComponent<Collider2D>()).isTrigger;
+						c.size = ((BoxCollider2D)origin.GetComponent<Collider2D>()).size;
+						c.offset = ((BoxCollider2D)origin.GetComponent<Collider2D>()).offset;
 					}
 					else
 					{
 						BoxCollider box = destination.AddComponent<BoxCollider>();
-						box.size = ((BoxCollider)origin.collider).size;
-						box.center = ((BoxCollider)origin.collider).center;
+						box.size = ((BoxCollider)origin.GetComponent<Collider>()).size;
+						box.center = ((BoxCollider)origin.GetComponent<Collider>()).center;
 					}
 					break;
 				case MapObjectType.Ellipse:
 					if (is2DColliders)
 					{
 						CircleCollider2D c = destination.AddComponent<CircleCollider2D>();
-						c.isTrigger = ((CircleCollider2D)origin.collider2D).isTrigger;
-						c.center = ((CircleCollider2D)origin.collider2D).center;
-						c.radius = ((CircleCollider2D)origin.collider2D).radius;
+						c.isTrigger = ((CircleCollider2D)origin.GetComponent<Collider2D>()).isTrigger;
+						c.offset = ((CircleCollider2D)origin.GetComponent<Collider2D>()).offset;
+						c.radius = ((CircleCollider2D)origin.GetComponent<Collider2D>()).radius;
 					}
 					else
 					{
 						CapsuleCollider capsule = destination.AddComponent<CapsuleCollider>();
-						capsule.isTrigger = ((CapsuleCollider)origin.collider).isTrigger;
-						capsule.height = ((CapsuleCollider)origin.collider).height;
-						capsule.radius = ((CapsuleCollider)origin.collider).radius;
-						capsule.center = ((CapsuleCollider)origin.collider).center;
-						capsule.direction = ((CapsuleCollider)origin.collider).direction;
+						capsule.isTrigger = ((CapsuleCollider)origin.GetComponent<Collider>()).isTrigger;
+						capsule.height = ((CapsuleCollider)origin.GetComponent<Collider>()).height;
+						capsule.radius = ((CapsuleCollider)origin.GetComponent<Collider>()).radius;
+						capsule.center = ((CapsuleCollider)origin.GetComponent<Collider>()).center;
+						capsule.direction = ((CapsuleCollider)origin.GetComponent<Collider>()).direction;
 					}
 					break;
 				case MapObjectType.Polygon:
 					if (is2DColliders)
 					{
 						PolygonCollider2D c = destination.AddComponent<PolygonCollider2D>();
-						c.isTrigger = ((PolygonCollider2D)origin.collider2D).isTrigger;
-						for (int i = 0; i < ((PolygonCollider2D)origin.collider2D).pathCount; i++)
+						c.isTrigger = ((PolygonCollider2D)origin.GetComponent<Collider2D>()).isTrigger;
+						for (int i = 0; i < ((PolygonCollider2D)origin.GetComponent<Collider2D>()).pathCount; i++)
 						{
-							c.SetPath(i, ((PolygonCollider2D)origin.collider2D).GetPath(i));
+							c.SetPath(i, ((PolygonCollider2D)origin.GetComponent<Collider2D>()).GetPath(i));
 						}
 					}
 					else
 					{
 						MeshCollider mc = destination.AddComponent<MeshCollider>();
-						mc.isTrigger = ((MeshCollider)origin.collider).isTrigger;
-						mc.convex = ((MeshCollider)origin.collider).convex;
-						mc.smoothSphereCollisions = ((MeshCollider)origin.collider).smoothSphereCollisions;
-						mc.sharedMesh = ((MeshCollider)origin.collider).sharedMesh;
+						mc.isTrigger = ((MeshCollider)origin.GetComponent<Collider>()).isTrigger;
+						mc.convex = ((MeshCollider)origin.GetComponent<Collider>()).convex;
+						mc.smoothSphereCollisions = ((MeshCollider)origin.GetComponent<Collider>()).smoothSphereCollisions;
+						mc.sharedMesh = ((MeshCollider)origin.GetComponent<Collider>()).sharedMesh;
 						mc.sharedMesh.RecalculateBounds();
 						mc.sharedMesh.RecalculateNormals();
 					}
@@ -1686,16 +1686,16 @@ namespace X_UniTMX
 					if (is2DColliders)
 					{
 						EdgeCollider2D c = destination.AddComponent<EdgeCollider2D>();
-						c.isTrigger = ((EdgeCollider2D)origin.collider2D).isTrigger;
-						c.points = ((EdgeCollider2D)origin.collider2D).points;
+						c.isTrigger = ((EdgeCollider2D)origin.GetComponent<Collider2D>()).isTrigger;
+						c.points = ((EdgeCollider2D)origin.GetComponent<Collider2D>()).points;
 					}
 					else
 					{
 						MeshCollider mc = destination.AddComponent<MeshCollider>();
-						mc.isTrigger = ((MeshCollider)origin.collider).isTrigger;
-						mc.convex = ((MeshCollider)origin.collider).convex;
-						mc.smoothSphereCollisions = ((MeshCollider)origin.collider).smoothSphereCollisions;
-						mc.sharedMesh = ((MeshCollider)origin.collider).sharedMesh;
+						mc.isTrigger = ((MeshCollider)origin.GetComponent<Collider>()).isTrigger;
+						mc.convex = ((MeshCollider)origin.GetComponent<Collider>()).convex;
+						mc.smoothSphereCollisions = ((MeshCollider)origin.GetComponent<Collider>()).smoothSphereCollisions;
+						mc.sharedMesh = ((MeshCollider)origin.GetComponent<Collider>()).sharedMesh;
 						mc.sharedMesh.RecalculateBounds();
 						mc.sharedMesh.RecalculateNormals();
 					}

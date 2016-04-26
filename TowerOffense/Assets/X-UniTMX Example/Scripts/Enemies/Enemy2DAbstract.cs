@@ -1,5 +1,5 @@
 /***
- * Created by Mário Madureira Fontes - 2014
+ * Created by MÃ¡rio Madureira Fontes - 2014
  * This is parte of example using X-UniTMX
  * 
  * X-UniTMX - Created by Guilherme "Chaoseiro" Maia
@@ -128,7 +128,7 @@ public abstract class Enemy2DAbstract : MonoBehaviour
 			GameObject clone = Instantiate(prefabShoot) as GameObject;
 			clone.transform.position = gameObject.transform.position;
 			clone.transform.parent = gameObject.transform.parent;
-			clone.rigidbody2D.velocity = (directionEnemy*velocityShoot);
+			clone.GetComponent<Rigidbody2D>().velocity = (directionEnemy*velocityShoot);
 		}
 	}
     
